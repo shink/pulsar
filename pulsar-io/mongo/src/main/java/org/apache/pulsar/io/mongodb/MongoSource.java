@@ -40,6 +40,7 @@ import org.apache.pulsar.io.core.PushSource;
 import org.apache.pulsar.io.core.SourceContext;
 import org.apache.pulsar.io.core.annotations.Connector;
 import org.apache.pulsar.io.core.annotations.IOType;
+import org.bson.BsonTimestamp;
 import org.bson.Document;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -110,7 +111,9 @@ public class MongoSource extends PushSource<byte[]> {
             }
         }
 
-        stream.batchSize(mongoConfig.getBatchSize()).fullDocument(FullDocument.UPDATE_LOOKUP);
+        stream.batchSize(mongoConfig.getBatchSize())
+                .fullDocument(FullDocument.UPDATE_LOOKUP)
+                .startAtOperationTime(new BsonTimestamp(0L));
 
         stream.subscribe(new Subscriber<ChangeStreamDocument<Document>>() {
             private ObjectMapper mapper = new ObjectMapper();
