@@ -10,20 +10,10 @@ public enum SyncType {
     /**
      * Synchronize all data.
      */
-    FULL_SYNC("fullSync"),
+    FULL_SYNC,
 
     /**
      * Synchronize incremental data.
      */
-    INCR_SYNC("incrSync");
-
-    private final String value;
-
-    SyncType(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
+    INCR_SYNC;
 }

@@ -52,14 +52,14 @@ import org.reactivestreams.Subscription;
         name = "mongo",
         type = IOType.SOURCE,
         help = "A source connector that sends mongodb documents to pulsar",
-        configClass = MongoConfig.class
+        configClass = MongoSourceConfig.class
 )
 @Slf4j
 public class MongoSource extends PushSource<byte[]> {
 
     private final Supplier<MongoClient> clientProvider;
 
-    private MongoConfig mongoConfig;
+    private MongoSourceConfig mongoConfig;
 
     private MongoClient mongoClient;
 
@@ -80,7 +80,7 @@ public class MongoSource extends PushSource<byte[]> {
     public void open(Map<String, Object> config, SourceContext sourceContext) throws Exception {
         log.info("Open MongoDB Source");
 
-        mongoConfig = MongoConfig.load(config);
+        mongoConfig = MongoSourceConfig.load(config);
         mongoConfig.validate(false, false);
 
         if (clientProvider != null) {

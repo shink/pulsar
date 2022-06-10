@@ -36,7 +36,7 @@ public class MongoConfigTest {
     @Test
     public void testMap() throws IOException {
         final Map<String, Object> map = TestHelper.createMap(true);
-        final MongoConfig cfg = MongoConfig.load(map);
+        final MongoSinkConfig cfg = MongoSinkConfig.load(map);
 
         assertEquals(cfg.getMongoUri(), TestHelper.URI);
         assertEquals(cfg.getDatabase(), TestHelper.DB);
@@ -48,7 +48,7 @@ public class MongoConfigTest {
             expectedExceptionsMessageRegExp = "Required property not set.")
     public void testBadMap() throws IOException {
         final Map<String, Object> map = TestHelper.createMap(false);
-        final MongoConfig cfg = MongoConfig.load(map);
+        final MongoSinkConfig cfg = MongoSinkConfig.load(map);
 
         cfg.validate(true, true);
     }
@@ -58,7 +58,7 @@ public class MongoConfigTest {
     public void testBadBatchSize() throws IOException {
         final Map<String, Object> map = TestHelper.createMap(true);
         map.put("batchSize", 0);
-        final MongoConfig cfg = MongoConfig.load(map);
+        final MongoSinkConfig cfg = MongoSinkConfig.load(map);
 
         cfg.validate(true, true);
     }
@@ -68,7 +68,7 @@ public class MongoConfigTest {
     public void testBadBatchTime() throws IOException {
         final Map<String, Object> map = TestHelper.createMap(true);
         map.put("batchTimeMs", 0);
-        final MongoConfig cfg = MongoConfig.load(map);
+        final MongoSinkConfig cfg = MongoSinkConfig.load(map);
 
         cfg.validate(true, true);
     }
@@ -76,7 +76,7 @@ public class MongoConfigTest {
     @Test
     public void testYaml() throws IOException {
         final File yaml = getFile("mongoSinkConfig.yaml");
-        final MongoConfig cfg = MongoConfig.load(yaml.getAbsolutePath());
+        final MongoSinkConfig cfg = MongoSinkConfig.load(yaml.getAbsolutePath());
 
         assertEquals(cfg.getMongoUri(), TestHelper.URI);
         assertEquals(cfg.getDatabase(), TestHelper.DB);

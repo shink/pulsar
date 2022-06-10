@@ -35,7 +35,7 @@ import org.apache.pulsar.io.core.annotations.FieldDoc;
  */
 @Data
 @Accessors(chain = true)
-public class MongoConfig implements Serializable {
+public class MongoSourceConfig implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -77,16 +77,16 @@ public class MongoConfig implements Serializable {
     private long batchTimeMs = DEFAULT_BATCH_TIME_MS;
 
 
-    public static MongoConfig load(String yamlFile) throws IOException {
+    public static MongoSourceConfig load(String yamlFile) throws IOException {
         final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        final MongoConfig cfg = mapper.readValue(new File(yamlFile), MongoConfig.class);
+        final MongoSourceConfig cfg = mapper.readValue(new File(yamlFile), MongoSourceConfig.class);
 
         return cfg;
     }
 
-    public static MongoConfig load(Map<String, Object> map) throws IOException {
+    public static MongoSourceConfig load(Map<String, Object> map) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final MongoConfig cfg = mapper.readValue(new ObjectMapper().writeValueAsString(map), MongoConfig.class);
+        final MongoSourceConfig cfg = mapper.readValue(new ObjectMapper().writeValueAsString(map), MongoSourceConfig.class);
 
         return cfg;
     }
